@@ -1,0 +1,353 @@
+body {
+    background-image: url(bg-forest.jpg);
+    background-attachment: fixed;
+}
+
+
+/* -------------SCROLL_BAR--------------- */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+ ::-webkit-scrollbar-track {
+    background-color: black;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background-color: rgb(146, 146, 146);
+    border-radius: 10px 10px 10px 10px;
+    transition: background-color 0.2s;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+
+/* -------------------------------------- */
+
+.main-div {
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.welcome {
+    width: 50%;
+    margin: auto;
+    margin-top: 3%;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 1);
+    box-shadow: 1px 1px 30px;
+    transition: box-shadow 0.2s;
+}
+
+.welcome:hover {
+    box-shadow: 1px 1px 50px;
+}
+
+.welcome-text {
+    margin-top: 0rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 35px;
+    color: #E7E7E7;
+}
+
+.register-text {
+    margin-left: 29.5%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 35px;
+    color: #E7E7E7;
+}
+
+.login-widgets {
+    border: None;
+    font-family: 'Muli', sans-serif;
+    font-size: 250%;
+    color: white;
+    background: None;
+    border-bottom: 3px solid white;
+    transition: border-bottom 0.3s, color 0.3s;
+}
+
+.login-widgets:focus {
+    outline: None;
+    border-bottom: 3px solid #BF2B2B;
+    color: #BF2B2B;
+}
+
+.button-submit-login {
+    font-size: 200%;
+    text-align: center;
+    border: None;
+    width: 15%;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
+    background-color: #BF2B2B;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.button-submit-login:hover {
+    background-color: rgb(121, 25, 25);
+    box-shadow: 0px 0px 2px 1px rgb(121, 25, 25);
+}
+
+.sidenav {
+    position: fixed;
+    height: 100%;
+    width: 30rem;
+    float: left;
+    background-color: black;
+    box-shadow: 1px 1px 30px;
+    overflow-y: scroll;
+}
+
+.home-sidebar-button {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 30%;
+    background-color: white;
+    float: left;
+    margin-left: 9%;
+    margin-top: 2rem;
+    transition: background-color 0.2s;
+}
+
+.home-sidebar-button:hover {
+    background-color: rgb(173, 173, 173);
+}
+
+.sidenav-subclass-color {
+    width: 0.2rem;
+    height: 3.5rem;
+    float: left;
+    margin-left: 0.5rem;
+}
+
+.join-class-button {
+    width: 85%;
+    height: 6rem;
+    border-radius: 100px;
+    background-color: #47C167;
+    float: left;
+    margin-top: 3rem;
+    margin-left: 2rem;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.join-class-button:hover {
+    background-color: rgb(51, 146, 76);
+}
+
+.mainclass-button {
+    float: left;
+    margin-left: 0.5rem;
+    margin-top: 0.3rem;
+    background-color: black;
+    border: None;
+    border-radius: 5px 5px 0px 0px;
+    outline: none;
+    color: white;
+    width: 95%;
+    height: 5rem;
+    transition: background-color 0.2s;
+}
+
+.mainclass-button:hover {
+    background-color: rgb(37, 37, 37);
+}
+
+.mainclass-button:focus {
+    outline: none;
+}
+
+.sidenav-element {
+    margin-left: 1rem;
+    margin-right: 5rem;
+    float: left;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 24px;
+    margin-top: 0.5rem;
+}
+
+.arrow-right {
+    display: block;
+    transition: display 0.2s;
+}
+
+.arrow-down {
+    display: none;
+    transition: display 0.2s;
+}
+
+.subclass-home {
+    display: none;
+    float: left;
+    margin-left: 0.5rem;
+    background-color: rgb(37, 37, 37);
+    border: None;
+    outline: none;
+    color: white;
+    width: 95%;
+    height: 3.5rem;
+    transition: color 0.2s;
+}
+
+.subclass-home:hover {
+    color: rgb(116, 116, 116);
+}
+
+.subclass-home-text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    margin-top: 0.4rem;
+    float: left;
+    margin-left: 8.3%;
+}
+
+.list-card {
+    height: 15rem;
+    width: 140rem;
+    float: left;
+    background-color: white;
+    transition: background-color 0.2s;
+}
+
+.list-card:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.top-bar {
+    width: 100rem;
+    position: fixed;
+    height: 5rem;
+    background-color: white;
+    border-radius: 50px;
+    margin-top: 1.5rem;
+    margin-left: 25rem;
+    box-shadow: 1px 1px 10px;
+    transition: box-shadow 0.3s;
+}
+
+.top-bar:hover {
+    box-shadow: 1px 1px 20px;
+}
+
+.lesson-container {
+    margin-left: 5rem;
+    margin-top: 2.5rem;
+}
+
+.lesson-title {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 23px;
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+}
+
+.lesson-subtitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 17px;
+    color: grey;
+    float: left;
+    margin-left: 1rem;
+}
+
+.search {
+    width: 40rem;
+    height: 2.5rem;
+    margin-top: 1.3rem;
+    margin-left: 0.5rem;
+    font-size: 20px;
+    float: left;
+    border: none;
+    background-color: none;
+    color: rgb(107, 107, 107);
+    font-family: 'Raleway', sans-serif;
+}
+
+.search:focus {
+    outline: none;
+}
+
+.pagination {
+    float: left;
+    color: white;
+}
+
+.lesson-maindiv {
+    width: 150rem;
+    background-color: white;
+    border-radius: 0px 10px 10px 0px;
+    margin-top: 1.5rem;
+    margin-left: 3rem;
+    overflow: hidden
+}
+
+.lesson-title-detail {
+    font-size: 40px;
+    font-family: 'Source Sans Pro', sans-serif;
+    float: left;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-bottom: -500rem;
+}
+
+.pagination-button {
+    border-radius: 100%;
+    transition: background-color 0.2s;
+}
+
+.pagination-button:hover {
+    background-color: lightgrey
+}
+
+.pagination-button-red {
+    border-radius: 100%;
+    transition: background-color 0.2s;
+}
+
+.pagination-button-red:hover {
+    background-color: rgb(199, 43, 43);
+}
+
+.grades-container {
+    width: 140rem;
+    float: left;
+    margin-left: 5rem;
+    margin-top: 3rem;
+    background-color: white;
+    /* border-radius: 1rem 1rem 1rem 1rem; */
+}
+
+.grade-container {
+    width: 18rem;
+    height: 19rem;
+    background-color: rgb(241, 241, 241);
+    float: left;
+    margin-left: 4rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    transition: background-color 0.2s;
+}
+
+.grade-container:hover {
+    background-color: rgb(223, 223, 223);
+}
+
+.grade-date {
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+    float: right;
+    margin-right: 0.5rem;
+    margin-top: 0.3rem;
+}
+
+.grade-value {
+    margin-top: 4rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 70px;
+    margin-left: -0.5rem;
+}

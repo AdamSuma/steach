@@ -1,0 +1,25 @@
+{% extends 'account/base.html' %}
+{% block body %}
+<div style="margin-left:33rem;">
+    <div class="grades-container">
+        <form style="margin-top:1rem; margin-left:1rem; float:left;margin-bottom:-10rem;" method='GET' action="{% url 'account:student_grades' subclass_id %}">
+            <img src="/media/extra/search.png" style="height:3rem; width:3rem;margin-top:1rem;margin-left:1rem;float:left;">
+            <input class="search" name='search_grades' value="{{request.GET.search_grades}}" placeholder="Search for your grades">
+        </form>
+        <div style="float:left; background-color:  rgb(185, 185, 185); width: 45rem; height:0.1rem; margin-top:6rem; margin-left:2rem;margin-bottom:-10rem;">
+        </div>
+        <br><br><br><br><br>
+        {% for grade in grades %}
+        <div class="grade-container" style="border-left: 0.5rem solid #{{ grade.sub_class.color_code}}">
+        <h1 class="grade-date">{{grade.date_added}}</h1>
+        <center>
+        <h1 class="grade-value">{{grade.value}}</h1>
+        <h1 class="grade-value" style="font-size: 25px; color: grey; margin-top:-1rem;" title="Actual Grade">{{grade.actual_value}}</h1>
+        <h1 class="grade-value" style="font-size: 16px; color: black; margin-top:1rem; font-family:'Source Sans Pro', sans serif;">{{grade.sub_class.name}}</h1>
+        </center>
+        </div>
+        {% endfor %}
+        <br>
+    </div>
+</div>
+{% endblock %}

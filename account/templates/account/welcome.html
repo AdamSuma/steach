@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}" />
+        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=0.2">
+
+<head>
+
+<body>
+    <div class="welcome" style="height:80rem;">
+        <center>
+        <img width="80%"src="/media/extra/Steach_logo.png" />
+        <br><br>
+        <h1 class="welcome-text" style="margin-top:2%">Welcome to the future of Education.</h1><br><br>
+        </center>
+        <br><br><br><br>
+        <form method="POST">
+        {% csrf_token %}
+        <center>
+        <span class="glyphicon glyphicon-user" style="color:grey; font-size:20px;" aria-hidden="true"></span>
+        <input class="login-widgets" type="text" name="username" id="id_username" placeholder=" Username" required>
+        <br>
+        <span class="glyphicon glyphicon-lock" style="color:grey; font-size:20px;" aria-hidden="true"></span>
+        <input class="login-widgets" type="password" name="password" required id="id_password" placeholder=" Password">
+        <br>
+        <br>
+        <button class="button-submit-login" style="font-size:200%;">Login</button>
+        </center>
+        </form>
+        <br><br><br><br><br><br><br><br><br><br>
+        <div style="margin-left:21%;">
+            <div class="container" style="display: inline-block;">
+                <a href="{% url 'account:student_register' %}"><button class="btn btn-outline-light" style="float:left;"><h1 style="font-family: 'Raleway', sans-serif; font-size: 200%;">I am a Student</h1></button></a>
+                <h1 class="welcome-text" style="float:left;margin-left:2%; margin-top:0.4%; font-size:22px;">New? Register Now.</h1>
+                <a href="{% url 'account:teacher_register' %}"><button class="btn btn-outline-danger" style="float:left;margin-left: 2%;"><h1 style="font-family: 'Raleway', sans-serif;font-size: 200%;">I am a Teacher</h1></button></a>
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+
+</html>

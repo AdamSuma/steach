@@ -37,8 +37,8 @@ class Userprofile(models.Model):
     
     #___________ TEACHER ___________________
     
-    teaching_subject = models.CharField(max_length=100, blank=False, null=False)
-    teaching_certificate = models.FileField(upload_to=certificate_file_path, blank=False, null=False)
+    teaching_subject = models.CharField(max_length=100, blank=False, null=True)
+    teaching_certificate = models.FileField(upload_to=certificate_file_path, blank=False, null=True)
     
 
 

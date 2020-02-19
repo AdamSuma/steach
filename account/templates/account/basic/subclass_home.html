@@ -1,0 +1,67 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+<div style="margin-left:33rem;float:left;overflow:hidden">
+    <div class="lesson-maindiv" style="border-left: 0.5rem solid #{{sub_class.color_code}}; height:100rem;">
+        <h1 class="lesson-title-detail">{{sub_class.name}}</h2>
+        <div style="height:0.1rem; width:97%; background-color:#D2D2D2; margin-top:7rem; margin-left:1.5rem;"></div>
+        {% if sub_class.teacher.profile_picture %}
+        <img src="{{sub_class.teacher.profile_picture.url}}" style="width:4rem; height:4rem; border-radius:2rem;float:left; margin-top:2rem; margin-left:2rem;"/>
+        {% else %}        
+        <img src="/media/extra/user.png" style="width:3rem; height:3rem;float:left; margin-top:2.5rem; margin-left:2rem;"/>
+        {% endif %}
+        <h1 class="lesson-subtitle" style="float:left;margin-left:1rem; margin-top:2.5rem;font-size:25px;margin-bottom:-500rem;color:black;">{{sub_class.teacher.user.first_name}} {{sub_class.teacher.user.last_name}}</h1>
+
+        <div style="width:85%; height:36rem; background-color: #ECECEC; margin-left:10rem; margin-top:10rem;">
+            <br>
+            <h1 style="color:black; margin-top:-1rem;font-size:30px; margin-left:2rem;font-family: 'Open Sans', sans-serif;">Lessons</h1>
+            <a href="{% url 'account:student_lessons' sub_class.id %}">
+                <div class='home-sidebar-button' style="border-radius:0.5rem;margin-top:-3.8rem;margin-right:1rem;float:right;width:3rem; height:3rem;" title="More">
+                    <img src="/media/extra/more.png" style="width: 2rem; height:2rem; margin-top:20%; margin-left:17%;" />
+                </div>
+            </a>
+            <div style="width:100%; height:30.5rem; margin-top:0rem; border-top: solid 2rem white;">
+                <br>
+                <div style="overflow-x:hidden; overflow-y: auto;height:26.5rem;">
+                    {% for lesson in last_lessons %}
+                    <a href="{% url 'account:student_lesson' sub_class.id lesson.id%}" style="color:black;">
+                    <div class="list-card" style="border-bottom: 0.1rem solid #DCDCDC; width:95%; margin-left:2rem;">
+                        <div style="background-color:#{{sub_class.color_code}}; width:0.4rem; height:15rem;float:left;"></div>
+                        <h1 class="lesson-title">{{lesson.title}}</h1>
+                        <h1 class="lesson-subtitle">{{lesson.sub_class.name}}</h1>
+                        <h1 class="lesson-subtitle" style="float:right; margin-right:2rem; margin-top:-2.5rem; color:black;">{{lesson.date_added}}</h1>
+                    </div>
+                    <div style="height:0.1rem; width:140rem;float:left;margin-bottom:-0.1rem;"></div>
+                    </a>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div style="width:40%; height:36rem; background-color: #ECECEC; margin-left:10rem; margin-top:5rem;">
+            <br>
+            <h1 style="color:black; margin-top:-1rem;font-size:30px; margin-left:2rem;font-family: 'Open Sans', sans-serif;">Grades</h1>
+            <a href="{% url 'account:student_grades' sub_class.id %}">
+                <div class='home-sidebar-button' style="border-radius:0.5rem;margin-top:-3.8rem;margin-right:1rem;float:right;width:3rem; height:3rem;" title="More">
+                    <img src="/media/extra/more.png" style="width: 2rem; height:2rem; margin-top:20%; margin-left:17%;" />
+                </div>
+            </a>
+            <div style="width:100%; height:30.5rem; margin-top:0rem; border-top: solid 2rem white;">
+                <br>
+                <div style="overflow-x:hidden; overflow-y: auto;height:26.5rem;">
+                    {% for grade in last_grades %}
+                    <div class="grade-container-subclass-home" style="border-left: 0.5rem solid #{{ grade.sub_class.color_code}}">
+                    <h1 class="grade-date">{{grade.date_added}}</h1>
+                    <center>
+                    <h1 class="grade-value" style="font-size:55px;">{{grade.value}}</h1>
+                    <h1 class="grade-value" style="font-size: 23px; color: grey; margin-top:-1rem;" title="Actual Grade">{{grade.actual_value}}</h1>
+                    <h1 class="grade-value" style="font-size: 14px; color: black; margin-top:1rem; font-family:'Source Sans Pro', sans serif;">{{grade.sub_class.name}}</h1>
+                    </center>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

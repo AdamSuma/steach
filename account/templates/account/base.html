@@ -63,7 +63,7 @@
 
             
             {% for subclass in user.userprofile.main_class.subclass_set.all %}
-                <a href="#">
+                <a href="{% url 'account:student_subclass_home' subclass.id %}">
                 <div class="subclass-home">
                     <div class="sidenav-subclass-color" style="background-color:#{{subclass.color_code}}"></div>
                     <h1 class="subclass-home-text">{{ subclass.name }}</h1>

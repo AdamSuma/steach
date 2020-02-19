@@ -333,12 +333,27 @@ body {
     transition: background-color 0.2s;
 }
 
+.grade-container-subclass-home {
+    width: 15rem;
+    height: 16rem;
+    background-color: white;
+    float: left;
+    margin-left: 3.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s;
+}
+
 .grade-container:hover {
     background-color: rgb(223, 223, 223);
 }
 
+.grade-container-subclass-home:hover {
+    background-color: rgb(233, 233, 233);
+}
+
 .grade-date {
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Source Sans Pro', sans-serif;
     float: right;
     margin-right: 0.5rem;

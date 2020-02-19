@@ -58,6 +58,17 @@ def student_home(request):
 
 
 @login_required
+def student_subclass_home(request, subclass_id):
+    if request.user.userprofile.user_type == 'teacher':
+        return redirect('account:teacher_register')
+    template_name = "account/basic/subclass_home.html"
+    subclass = SubClass.objects.get(id=subclass_id)
+    last_lessons = subclass.lesson_set.all().order_by("-date_added")[0:6]
+    last_grades = request.user.userprofile.grade_set.filter(sub_class=subclass).order_by("-date_added")[0:6]
+    return render(request, template_name, context={'last_lessons': last_lessons, "last_grades": last_grades, "sub_class": subclass})
+    
+
+@login_required
 def student_lessons(request, subclass_id):
     template_name = "account/basic/student_lessons.html"
     search_input = request.GET.get('search')
@@ -102,15 +113,16 @@ def student_lesson(request, subclass_id, lesson_id):
 def student_grades(request, subclass_id):
     template_name = "account/basic/student_grades.html"
     search_input = request.GET.get('search_grades')
+
     if request.user.userprofile.user_type == 'teacher':
         return redirect('account:teacher_register')
     main_class = request.user.userprofile.main_class
 
     if subclass_id == '0':
-        grades_list = Grade.objects.filter(sub_class__main_class=main_class).order_by('-date_added')
+        grades_list = Grade.objects.filter(sub_class__main_class=main_class, student=request.user.userprofile).order_by('-date_added')
     else:
         if SubClass.objects.filter(id=subclass_id):
-            grades_list = Grade.objects.filter(sub_class=SubClass.objects.get(id=subclass_id), sub_class__main_class=main_class).order_by('-date_added')
+            grades_list = Grade.objects.filter(sub_class=SubClass.objects.get(id=subclass_id), student=request.user.userprofile).order_by('-date_added')
         else:
             return redirect('account:student_home')
     if search_input:

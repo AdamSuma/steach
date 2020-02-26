@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from .forms import *
 from django.core.paginator import Paginator
+import datetime
+from datetime import timedelta
 
 
 
@@ -136,3 +138,42 @@ def student_grades(request, subclass_id):
     grades = paginator.get_page(page)
 
     return render(request, template_name, context={'grades': grades, 'subclass_id': subclass_id})
+
+
+
+def student_calendar(request, subclass_id, week):
+    week = int(week)
+    template_name = "account/basic/student_calendar.html"
+    today = datetime.date.today()
+    main_class = request.user.userprofile.main_class
+    sub_class = SubClass.objects.filter(id=subclass_id)
+
+    if week:
+        delta = timedelta(days=7-today.weekday() + 8*(week-1))
+        date_start = today + delta
+    elif today.weekday() >= 5:
+        date_start = today + timedelta(7-today.weekday())
+    else:
+        date_start = today
+    
+    dates = {}
+    dates2 = []
+    if sub_class:
+        for i in range(date_start.weekday(), 5):
+            date = date_start + timedelta(days=(i-today.weekday()))
+            upcoming_tests = UpcomingTest.objects.filter(date=date, sub_class=sub_class[0])
+
+            dates.update({ date:upcoming_tests })
+
+        return render(request, template_name, context={'dates': dates, 'sub_class': sub_class[0]})
+    
+    else:
+        for i in range(date_start.weekday(), 5):
+            date = date_start + timedelta(days=(i-today.weekday()))
+            upcoming_tests = UpcomingTest.objects.filter(date=date, sub_class__main_class=main_class)
+
+            dates.update({ date:upcoming_tests })
+        
+        print(dates)
+        return render(request, template_name, context={'dates': dates, 'dates2': dates2})
+    

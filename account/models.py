@@ -77,10 +77,23 @@ class Lesson(models.Model):
 class Grade(models.Model):
     actual_value = models.FloatField(validators=[MaxValueValidator(10)], null=True, blank=True)
     value = models.IntegerField(validators=[MaxValueValidator(10)])
+    is_term_paper = models.BooleanField(default=False)
     student = models.ForeignKey(Userprofile, on_delete=models.CASCADE, null=False)
     sub_class = models.ForeignKey(SubClass, on_delete=models.CASCADE, null=False)
     date_added = models.DateField(default=date.today)
 
+
+
+class UpcomingTest(models.Model):
+    name = models.CharField(max_length=30)
+    date = models.DateField()
+    sub_class = models.ForeignKey(SubClass, on_delete=models.CASCADE, null=False)
+    description = models.TextField(max_length=250, null=True, blank=True)
+
+    def test_pdf_upload_path(self, filename):
+        return "upcoming_tests/" + self.sub_class.main_class.name + "/" + self.sub_class.name + "/" + filename
+
+    topics = models.FileField(upload_to=test_pdf_upload_path, null=True, blank=True)
 
 
 

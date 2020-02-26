@@ -92,10 +92,12 @@
                 <h1 class="sidenav-element" id="sidenav-mainclass">My Teachers</h1>
             </button>
 
+            <a href="{% url 'account:student_calendar' 0 0 %}">
             <button class="mainclass-button" style="border-radius: 5px 5px 5px 5px;">
-                <img src="/media/extra/test2.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
-                <h1 class="sidenav-element" id="sidenav-mainclass">Upcoming Tests</h1>
+                <img src="/media/extra/calendar.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
+                <h1 class="sidenav-element" id="sidenav-mainclass">My Calendar</h1>
             </button>
+            </a>
 
             <center><button class="btn btn-outline-danger" style="height:3.5rem;margin-top:12rem;"><h1 style="font-size:20px;font-family: 'Raleway', sans-serif;">Leave Class</h1></buttton></center>
         {% endif %}

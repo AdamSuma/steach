@@ -53,7 +53,11 @@
                     <div class="grade-container-subclass-home" style="border-left: 0.5rem solid #{{ grade.sub_class.color_code}}">
                     <h1 class="grade-date">{{grade.date_added}}</h1>
                     <center>
+                    {% if grade.is_term_paper %}
+                    <h1 class="grade-value" style="font-size:55px;color:red;">{{grade.value}}</h1>
+                    {% else %}
                     <h1 class="grade-value" style="font-size:55px;">{{grade.value}}</h1>
+                    {% endif %}
                     <h1 class="grade-value" style="font-size: 23px; color: grey; margin-top:-1rem;" title="Actual Grade">{{grade.actual_value}}</h1>
                     <h1 class="grade-value" style="font-size: 14px; color: black; margin-top:1rem; font-family:'Source Sans Pro', sans serif;">{{grade.sub_class.name}}</h1>
                     </center>

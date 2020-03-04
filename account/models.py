@@ -84,14 +84,22 @@ class Grade(models.Model):
 
 
 
-class UpcomingTest(models.Model):
+class Event(models.Model):
     name = models.CharField(max_length=30)
     date = models.DateField()
     sub_class = models.ForeignKey(SubClass, on_delete=models.CASCADE, null=False)
     description = models.TextField(max_length=250, null=True, blank=True)
+    
+    TYPE_CHOICES = (
+        ('test', 'Test'),
+        ('project', 'Project'),
+        ('homework', 'Homework')
+    )
+
+    event_type = models.CharField(max_length=10, choices=TYPE_CHOICES, null=True)
 
     def test_pdf_upload_path(self, filename):
-        return "upcoming_tests/" + self.sub_class.main_class.name + "/" + self.sub_class.name + "/" + filename
+        return "events/" + self.sub_class.main_class.name + "/" + self.sub_class.name + "/" + filename
 
     topics = models.FileField(upload_to=test_pdf_upload_path, null=True, blank=True)
 

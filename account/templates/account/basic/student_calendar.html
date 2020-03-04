@@ -22,8 +22,15 @@
                         <a href="#" style="color:black;">
                         <div class="list-card" style="border-bottom: 0.1rem solid #DCDCDC; width:95%; margin-left:2rem;">
                             <div style="background-color:#{{event.sub_class.color_code}}; width:0.4rem; height:15rem;float:left;"></div>
+                            {% if event.event_type == "homework" %}
+                            <img src="/media/extra/homework.png" style="float:left; height:2.3rem; width:2.3rem;margin-top:1.7rem;margin-left:0.3rem; margin-right:0.3rem;" />
+                            {% elif event.event_type == "test" %}
+                            <img src="/media/extra/pen.png" style="float:left; height:2.3rem; width:2.3rem;margin-top:1.7rem;margin-left:0.3rem; margin-right:0.3rem;" />
+                            {% elif event.event_type == "project" %}
+                            <img src="/media/extra/project.png" style="float:left; height:2.3rem; width:2.3rem;margin-top:1.7rem;margin-left:0.3rem; margin-right:0.3rem;" />
+                            {% endif %}
                             <h1 class="lesson-title">{{event.name}}</h1>
-                            <h1 class="lesson-subtitle">{{event.sub_class.name}}</h1>
+                            <h1 class="lesson-subtitle" style="margin-left:1.5rem;">{{event.sub_class.name}}</h1>
                             <h1 class="lesson-subtitle" style="float:right; margin-right:2rem; margin-top:-2.5rem; color:black;">{{event.date}}</h1>
                         </div>
                         <div style="height:0.1rem; width:140rem;float:left;margin-bottom:-0.1rem;"></div>

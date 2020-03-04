@@ -140,7 +140,7 @@ def student_grades(request, subclass_id):
     return render(request, template_name, context={'grades': grades, 'subclass_id': subclass_id})
 
 
-
+@login_required
 def student_calendar(request, subclass_id, week):
     week = int(week)
     template_name = "account/basic/student_calendar.html"
@@ -148,8 +148,11 @@ def student_calendar(request, subclass_id, week):
     main_class = request.user.userprofile.main_class
     sub_class = SubClass.objects.filter(id=subclass_id)
 
-    if week:
-        delta = timedelta(days=7-today.weekday() + 8*(week-1))
+    if week and (today.weekday() in [5,6]):
+        delta = timedelta(days=7-today.weekday() + 7*(week))
+        date_start = today + delta
+    elif week:
+        delta = timedelta(days=7-today.weekday() + 7*(week-1))
         date_start = today + delta
     elif today.weekday() >= 5:
         date_start = today + timedelta(7-today.weekday())
@@ -161,19 +164,18 @@ def student_calendar(request, subclass_id, week):
     if sub_class:
         for i in range(date_start.weekday(), 5):
             date = date_start + timedelta(days=(i-today.weekday()))
-            upcoming_tests = UpcomingTest.objects.filter(date=date, sub_class=sub_class[0])
+            events = Event.objects.filter(date=date, sub_class=sub_class[0])
 
-            dates.update({ date:upcoming_tests })
+            dates.update({ date:events })
 
         return render(request, template_name, context={'dates': dates, 'sub_class': sub_class[0]})
     
     else:
         for i in range(date_start.weekday(), 5):
-            date = date_start + timedelta(days=(i-today.weekday()))
-            upcoming_tests = UpcomingTest.objects.filter(date=date, sub_class__main_class=main_class)
+            date = date_start + timedelta(days=(i-date_start.weekday()))
+            events = Event.objects.filter(date=date, sub_class__main_class=main_class)
 
-            dates.update({ date:upcoming_tests })
-        
-        print(dates)
+            dates.update({ date:events })
+
         return render(request, template_name, context={'dates': dates, 'dates2': dates2})
     

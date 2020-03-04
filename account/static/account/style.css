@@ -366,3 +366,8 @@ body {
     font-size: 70px;
     margin-left: -0.5rem;
 }
+
+.inactive {
+    height: 1rem;
+    width: 1rem;
+}

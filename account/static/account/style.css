@@ -371,3 +371,70 @@ body {
     height: 1rem;
     width: 1rem;
 }
+
+.add-lesson-button {
+    float: left;
+    height: 100%;
+    width: 17rem;
+    margin-left: -0.1rem;
+    background-color: none;
+    transition: background-color 0.2s;
+}
+
+.add-lesson-button:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+
+/* kjhsajkhsfkjhfaskjhfsakjhfsadkjhfsakjhsafkjhsadkjhsdjh */
+
+.dropbtn {
+    background-color: white;
+    color: #979797;
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 25rem;
+    float: left;
+    height: 5rem;
+    font-size: 18px;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+    background-color: rgb(233, 233, 233);
+    outline: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 25rem;
+    margin-top: 5rem;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.dropdown-content a {
+    color: black;
+    background-color: white;
+    height: 4rem;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.show {
+    display: block;
+}

@@ -7,8 +7,11 @@ app_name = 'account'
 urlpatterns = [
     url(r'^$', LoginView.as_view(template_name='account/welcome.html'), name='welcome_page'),
     url(r'^student/$', views.student_home, name='student_home'),
+    url(r'^teacher/$', views.teacher_home, name='teacher_home'),
     url(r'^student/(?P<subclass_id>[0-9]+)/$', views.student_subclass_home, name='student_subclass_home'),
-    url(r'^student/lessons/(?P<subclass_id>[0-9]+)/$', views.student_lessons, name='student_lessons'),    
+    url(r'^student/lessons/(?P<subclass_id>[0-9]+)/$', views.student_lessons, name='student_lessons'),
+    url(r'^teacher/lessons/(?P<subclass_id>[0-9]+)/$', views.teacher_lessons, name='teacher_lessons'),
+    url(r'^teacher/lessons/(?P<subclass_id>[0-9]+)/add_lesson/$', views.add_lesson, name='add_lesson'),        
     url(r'^student/grades/(?P<subclass_id>[0-9]+)/$', views.student_grades, name='student_grades'),
     url(r'^student/calendar/(?P<subclass_id>[0-9]+)/(?P<week>[0-9]+)/$', views.student_calendar, name='student_calendar'),    
     url(r'^student/lessons/(?P<subclass_id>[0-9]+)/(?P<lesson_id>[0-9]+)/$', views.student_lesson, name='student_lesson'),

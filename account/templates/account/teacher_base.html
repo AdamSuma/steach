@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'account/style.css' %}" />
+        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:200&display=swap" rel="stylesheet">
+
+        <meta name="viewport" content="width=device-width, initial-scale=0.2">
+
+<head>
+
+<body>
+    
+    <div class="sidenav" id="sidenav">
+    <center>
+        {% if user.userprofile.profile_picture %}
+            <img src="{{user.userprofile.profile_picture.url}}" style="width: 13rem; height:13rem; border-radius: 50%; margin-top:7%;" />
+        {% else %}
+            <img src="/media/extra/Steach_logo.png" style="width: 100%; float:left; margin-left:-2%;" />
+            {% endif %}
+
+            <h1 class='welcome-text' style="margin-top: 1rem; font-size:260%">{{user.first_name}} {{user.last_name}}</h1>
+            
+            <a href="{% url 'account:student_home' %}">
+                <div class='home-sidebar-button' title="Home">
+                    <img src="/media/extra/home.png" style="width: 2rem; height:2rem; margin-top:22%; margin-left:2%;" />
+                </div>
+            </a>
+
+            <div class='home-sidebar-button' title="Edit Profile">
+                <img src="/media/extra/pencil_black.png" style="width: 2rem; height:2rem; margin-top:20%; margin-left:-5%;" />
+            </div>
+            
+            <div class='home-sidebar-button' title="Logout">
+                <img src="/media/extra/exit.png" style="width: 2rem; height:2rem; margin-top:25%; margin-left: 10%;" />
+            </div>
+
+            <a href="#">
+                <div class='home-sidebar-button' style="" title="Notfications">
+                    <img src="/media/extra/notification.png" style="width: 2.4rem; height:2.4rem; margin-top:22%; margin-left:2%;" />
+                </div>
+            </a>
+
+            </center>
+            <br>
+            <div style="width:100%; height:0.2rem; background-color:white; float:left; margin-top:1.5rem;"></div>
+            
+            {% if not user.userprofile.main_class %}
+                <div class="join-class-button" style="width:27rem; height:3rem;margin-top:1.5rem;"><h1 class="welcome-text" style="color: black; margin-top: 0.3rem;font-size:20px">Create Main Class</h1></div>
+            {% endif %}
+            {% if user.userprofile.subclass_set.all %}
+            <br><br><br><br><br>
+            <button class="mainclass-button" style="margin-top:1rem;" id="mainclass-home" onclick="show_hide()">
+                <img src="/media/extra/menu.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
+                <h1 class="sidenav-element" id="sidenav-mainclass">My Classes</h1>
+                <img class="arrow-right" src="/media/extra/right-arrow.png" style="width:17px; height:17px;float:right;margin-top:1.1rem;"/>
+                <img class="arrow-down" src="/media/extra/down-arrow.png" style="width:17px; height:17px;float:right;margin-top:1.1rem;"/>
+            </button>
+
+            
+            {% for subclass in user.userprofile.subclass_set.all %}
+                <a href="#">
+                <div class="subclass-home">
+                    <div class="sidenav-subclass-color" style="background-color:#{{subclass.color_code}}"></div>
+                    <h1 class="subclass-home-text">{{ subclass }}</h1>
+                </div>
+                </a>
+            {% endfor %}
+            
+            <br><br><br><br><br><br><br>
+            
+            <a href="{% url 'account:teacher_lessons' 0 %}">
+                <button class="mainclass-button" style="border-radius: 5px 5px 5px 5px;">
+                    <img src="/media/extra/test2.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
+                    <h1 class="sidenav-element" id="sidenav-mainclass">Lessons</h1>
+                </button>
+            </a>
+
+            <a href="{% url 'account:student_grades' 0 %}">
+                <button class="mainclass-button" style="border-radius: 5px 5px 5px 5px;">
+                    <img src="/media/extra/folder.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
+                    <h1 class="sidenav-element" id="sidenav-mainclass">Grades</h1>
+                </button>
+            </a>
+
+            <button class="mainclass-button" style="border-radius: 5px 5px 5px 5px;">
+                <img src="/media/extra/teachers.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
+                <h1 class="sidenav-element" id="sidenav-mainclass">My Students</h1>
+            </button>
+
+            <a href="{% url 'account:student_calendar' 0 0 %}">
+            <button class="mainclass-button" style="border-radius: 5px 5px 5px 5px;">
+                <img src="/media/extra/calendar.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
+                <h1 class="sidenav-element" id="sidenav-mainclass">Calendar</h1>
+            </button>
+            </a>
+
+            <center><button class="btn btn-outline-danger" style="height:3.5rem;margin-top:12rem;"><h1 style="font-size:20px;font-family: 'Raleway', sans-serif;">Leave Class</h1></buttton></center>
+        {% endif %}
+    </div>
+    <div class="main-div" id="main">
+    {% block body %}
+    {% endblock %}
+    </div>
+</body>
+<script>
+
+if(document.getElementById("mainclass-home")){
+    document.getElementById("mainclass-home").addEventListener("mouseover", function () {
+        this.style.backgroundColor = "rgb(37, 37, 37)";
+    })
+    document.getElementById("mainclass-home").addEventListener("mouseout", function () {
+        this.style.backgroundColor = "black";
+    })
+}
+
+
+function fadein(){
+	document.getElementById("main").style.opacity = 1;
+}
+window.onload = fadein
+
+function show_hide()
+{
+	for(var i = 0; i < document.getElementsByClassName("subclass-home").length; i++){
+        if(document.getElementsByClassName("subclass-home")[i].style.display == "none" || document.getElementsByClassName("subclass-home")[i].style.display == ""){
+            document.getElementsByClassName("subclass-home")[i].style.display = "block";
+            document.getElementsByClassName("arrow-down")[0].style.display = "block";
+            document.getElementsByClassName("arrow-right")[0].style.display = "none";
+            document.getElementById("mainclass-home").style.backgroundColor = "rgb(37, 37, 37)";
+            document.getElementById("mainclass-home").addEventListener("mouseout", function () {
+                this.style.backgroundColor = "rgb(37, 37, 37)";
+            })     
+        }
+        else if(document.getElementsByClassName("subclass-home")[i].style.display == "block"){
+            document.getElementsByClassName("subclass-home")[i].style.display = "none";
+            document.getElementsByClassName("arrow-down")[0].style.display = "none";
+            document.getElementsByClassName("arrow-right")[0].style.display = "block";
+            document.getElementById("sidenav-mainclass").style.color = "white";
+            document.getElementById("mainclass-home").addEventListener("mouseout", function () {
+                this.style.backgroundColor = "black";
+            })
+        }       
+    }
+}
+</script>
+</html>

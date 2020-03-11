@@ -59,3 +59,19 @@ class RegistrationFormTeacher(forms.ModelForm):
         widgets = {
             'teacher_subject': forms.TextInput(attrs={'style':'color:black;'}),
         }
+
+class AddLessonForm(forms.ModelForm):
+    def __init__(self,*args, **kwargs):
+        self.sub_classes = kwargs.pop('sub_classes')
+        super(AddLessonForm, self).__init__(*args, **kwargs)
+        self.fields['sub_class'] = forms.ModelChoiceField(queryset=self.sub_classes, empty_label="Choose Class")
+            
+
+    class Meta:
+        model = Lesson
+        fields = (
+            'title',
+            'text',
+            'pdf',
+            'sub_class',
+        )

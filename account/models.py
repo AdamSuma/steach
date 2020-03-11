@@ -54,7 +54,7 @@ class SubClass(models.Model):
     color_code = models.CharField(max_length=6, default="C70000")
 
     def __str__(self):
-        return self.name
+        return self.main_class.name + " " + self.name
     
 
 

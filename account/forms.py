@@ -34,17 +34,41 @@ class RegistrationFormUser(UserCreationForm):
         return user
 
 
+class UserEditForm(UserChangeForm):
+    password = None
+
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+        )
+        widgets = {
+			'username': forms.TextInput(attrs={'style':'color:black;'}),
+            'email': forms.TextInput(attrs={'style':'color:black;'}),
+            'first_name': forms.TextInput(attrs={'style':'color:black;'}),
+            'last_name': forms.TextInput(attrs={'style':'color:black;'}),
+		}
+
+
+    def save(self, commit=True):
+        user = super(UserChangeForm, self).save(commit=False)
+
+        if commit:
+            user.save()
+
+        return user
+
+
 class RegistrationFormStudent(forms.ModelForm):
 
     class Meta:
         model = Userprofile
         fields = (
-            'id_number',
             'profile_picture',
         )
-        widgets = {
-            'id_number': forms.TextInput(attrs={'style':'color:black;'}),
-        }
 
 
 class RegistrationFormTeacher(forms.ModelForm):
@@ -52,13 +76,8 @@ class RegistrationFormTeacher(forms.ModelForm):
     class Meta:
         model = Userprofile
         fields = (
-            'teaching_subject',
-            'teaching_certificate',
             'profile_picture',
         )
-        widgets = {
-            'teacher_subject': forms.TextInput(attrs={'style':'color:black;'}),
-        }
 
 class AddLessonForm(forms.ModelForm):
     def __init__(self,*args, **kwargs):
@@ -66,7 +85,6 @@ class AddLessonForm(forms.ModelForm):
         super(AddLessonForm, self).__init__(*args, **kwargs)
         self.fields['sub_class'] = forms.ModelChoiceField(queryset=self.sub_classes, empty_label="Choose Class")
             
-
     class Meta:
         model = Lesson
         fields = (
@@ -74,4 +92,24 @@ class AddLessonForm(forms.ModelForm):
             'text',
             'pdf',
             'sub_class',
+        )
+
+class AddMainClassForm(forms.ModelForm):
+    class Meta:
+        model = MainClass
+        fields = (
+            'name',
+            'semester',
+        )
+
+class AddSubClassForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AddSubClassForm, self).__init__(*args, **kwargs)
+        self.fields['teacher'] = forms.IntegerField()
+
+    class Meta:
+        model = SubClass
+        fields = (
+            'name',
+            'color_code'
         )

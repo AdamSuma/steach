@@ -1,0 +1,49 @@
+{% extends 'account/teacher_base.html' %}
+
+{% block body %}
+<div style="margin-left:33rem;float:left;overflow:hidden;">
+    <div class="lesson-maindiv" style="border-left: 0.5rem solid lightgrey;background-color:#F4F4F4;height:85rem;">
+        <h1 class="lesson-title-detail" style="float:left;">{{user.userprofile.main_class.name}}</h1>
+        <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:3rem;" >
+            <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Edit Main Class</h1>
+        </div>
+        <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:2rem;" >
+            <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Grades</h1>
+        </div>
+        <a href="{% url 'account:mainclass_students' %}" style="text-decoration:none;color:black;">
+        <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:2rem;" >
+            <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Students</h1>
+        </div>
+        </a>
+        <div style="height:0.1rem; width:97%; background-color:#D2D2D2; margin-top:6.5rem; margin-left:1.5rem;"></div>
+        <div style="overflow-y:auto;overflow-x:hidden;width:61.5%;height:87%; background-color:#F4F4F4;margin-left:2rem; margin-top:2rem;float:left;">
+            <a href="{% url 'account:add_subclass_request' %}" style="color:black;">
+                <div class="list-card-mainclass" style="border-bottom: 0.1rem solid #DCDCDC; width:95%; margin-left:2rem;">
+                    <div style="background-color:#B5B5B5; width:0.4rem; height:15rem;float:left;"></div>
+                    <img src="/media/extra/plus.png" style="width:7rem; height:7rem;margin-top:3.5rem;margin-left:14rem;float:left;" />
+                    <h1 style="font-size:50px;font-family:'Muli', sans-serif; color:#B5B5B5; float:left;margin-top:4rem;margin-left:2rem;">ADD NEW SUBJECT</h1>
+                </div>
+                <div style="height:0.1rem; width:140rem;float:left;margin-bottom:-0.1rem;"></div>
+            </a>  
+            
+            {% for subclass in user.userprofile.main_class.subclass_set.all %}
+                <a href="#" style="color:black;">
+                    <div class="list-card-mainclass" style="border-bottom: 0.1rem solid #DCDCDC; width:95%; margin-left:2rem;">
+                        <div style="background-color:#{{subclass.color_code}}; width:0.4rem; height:15rem;float:left;"></div>
+                        <h1 class="lesson-title">{{subclass.name}}</h1>
+                        <h1 class="lesson-subtitle">{{subclass.teacher.user.first_name}} {{subclass.teacher.user.last_name}}</h1>
+                    </div>
+                    <div style="height:0.1rem; width:140rem;float:left;margin-bottom:-0.1rem;"></div>
+                </a>  
+            {% endfor %}
+            <br>
+        </div>
+        <div style="float:right; width:34%; height:87%; margin-top:2rem;margin-right:2rem;">
+            <h1 style="transform: rotate(+20deg);font-size:31px;font-family:'Open Sans', sans-serif; color:#B5B5B5; float:left;margin-top:30rem;margin-left:2rem;">New features being developed :)</h1>
+        </div>
+        <div style="float:right; background-color:#D2D2D2; margin-top:1rem; margin-right:0.5rem;height:100%; width:0.1rem;"></div>
+        
+        <br>
+    </div>
+</div>
+{% endblock %}

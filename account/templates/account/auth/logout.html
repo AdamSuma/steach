@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+<center>
+<div class="welcome" style="height:80rem;">
+<center>
+<br><br><br><br><br>
+    <img width="80%"src="/media/extra/Steach_logo.png" />
+    <br><br><br>
+    <h1 class="welcome-text" style="margin-top:2%; font-family:'Open Sans'">You successfully logged out.</h1><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+    <a href="{% url 'account:welcome_page' %}">
+        <button class="btn btn-outline-warning" style="font-family:'Muli'; font-size:20px;">Log back in</button>
+    </a>
+</center>
+</div>
+</center>
+{% endblock %}

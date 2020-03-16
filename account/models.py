@@ -12,8 +12,8 @@ def certificate_file_path(instance, filename):
 
 
 class MainClass(models.Model):
-    name = models.CharField(max_length=30)
-    year = models.IntegerField(default=1)
+    name = models.CharField(max_length=8)
+    semester = models.IntegerField(default=1)
     
     def __str__(self):
         return self.name
@@ -33,12 +33,12 @@ class Userprofile(models.Model):
 
     #___________ STUDENT ___________________
     
-    id_number = models.IntegerField(blank=False, null=True) 
+    id_number = models.IntegerField(blank=True, null=True) 
     
     #___________ TEACHER ___________________
     
     teaching_subject = models.CharField(max_length=100, blank=False, null=True)
-    teaching_certificate = models.FileField(upload_to=certificate_file_path, blank=False, null=True)
+    teaching_certificate = models.FileField(upload_to=certificate_file_path, blank=True, null=True)
     
 
 
@@ -47,8 +47,8 @@ class Userprofile(models.Model):
 
 
 class SubClass(models.Model):
-    name = models.CharField(max_length=30,blank=False,  null=False)
-    subject = models.CharField(max_length=40, blank=False, null=False)
+    name = models.CharField(max_length=20,blank=False,  null=False)
+    subject = models.CharField(max_length=40, blank=True, null=True)
     teacher = models.ForeignKey(Userprofile, on_delete=models.SET_NULL, null=True)
     main_class = models.ForeignKey(MainClass, on_delete=models.CASCADE, null=False)
     color_code = models.CharField(max_length=6, default="C70000")
@@ -103,6 +103,13 @@ class Event(models.Model):
 
     topics = models.FileField(upload_to=test_pdf_upload_path, null=True, blank=True)
 
+
+class Request(models.Model):
+    sent_by = models.ForeignKey(Userprofile, on_delete=models.CASCADE, null=False, related_name='sent')
+    recieved_by = models.ForeignKey(Userprofile, on_delete=models.CASCADE, null=False, related_name='recieved')
+    subclass_name = models.CharField(max_length=20,blank=False,  null=False)
+    subclass_color_code = models.CharField(max_length=6, default="C70000")
+    subclass = models.OneToOneField(SubClass, on_delete=models.CASCADE, null=True, default=None)
 
 
 

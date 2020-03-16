@@ -52,6 +52,9 @@
         {% if user.userprofile.main_class %}
             <center><h1 style="color: black;font-size:30px;font-family: 'Roboto Slab';">Get back to learning by clicking <b>My Lessons</b> on the sidebar.</h1>
             </center>
+        {% elif user.userprofile.sent.all %}
+            <center><h1 style="color: black;font-size:30px;font-family: 'Roboto Slab';">You have sent a request to <b>Join a Class</b>, you need to wait for the <b>Teacher</b> to <b>accept</b> your request.</h1>
+            </center>
         {% else %}
             <center><h1 style="color: black;font-size:30px;font-family: 'Roboto Slab';">Join a class on STEACH by pressing <b>Join Class</b> on the sidebar.</h1>
             </center>

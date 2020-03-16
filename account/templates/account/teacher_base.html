@@ -35,17 +35,24 @@
                 </div>
             </a>
 
+            <a href="{% url 'account:edit_teacher_profile'%}">
             <div class='home-sidebar-button' title="Edit Profile">
                 <img src="/media/extra/pencil_black.png" style="width: 2rem; height:2rem; margin-top:20%; margin-left:-5%;" />
             </div>
-            
+            </a>
+
+            <a href="{% url 'account:logout'%}">
             <div class='home-sidebar-button' title="Logout">
                 <img src="/media/extra/exit.png" style="width: 2rem; height:2rem; margin-top:25%; margin-left: 10%;" />
             </div>
+            </a>
 
-            <a href="#">
+            <a href="{% url 'account:teacher_notifications' %}">
                 <div class='home-sidebar-button' style="" title="Notfications">
-                    <img src="/media/extra/notification.png" style="width: 2.4rem; height:2.4rem; margin-top:22%; margin-left:2%;" />
+                    {% if user.userprofile.recieved.all %}
+                    <div style='height:0.8rem;width:0.8rem;border-radius:100%; background-color:#FF5100;float:right;margin-bottom:-10rem;'></div>
+                    {% endif %}
+                    <img src="/media/extra/notification.png" style="width: 2.4rem; height:2.4rem; margin-top:22%;float:left; margin-left:0.9rem;;" />
                 </div>
             </a>
 
@@ -54,10 +61,15 @@
             <div style="width:100%; height:0.2rem; background-color:white; float:left; margin-top:1.5rem;"></div>
             
             {% if not user.userprofile.main_class %}
-                <div class="join-class-button" style="width:27rem; height:3rem;margin-top:1.5rem;"><h1 class="welcome-text" style="color: black; margin-top: 0.3rem;font-size:20px">Create Main Class</h1></div>
+                <a href="{% url 'account:add_mainclass' %}"><div class="join-class-button" style="width:27rem; height:3rem;margin-top:1.5rem;"><h1 class="welcome-text" style="color: black; margin-top: 0.3rem;font-size:20px">Create Main Class</h1></div></a>
+            {% else %}
+                <center>
+                <a href="{% url 'account:mainclass_home'%}">
+                <button class="btn btn-outline-info" style='margin-top:2rem;width:28rem; height:4rem; font-family: "Source Sans Pro", sans-serif; font-size:22px;'>{{ user.userprofile.main_class.name }}</button>
+                </a>
+                </center>
             {% endif %}
             {% if user.userprofile.subclass_set.all %}
-            <br><br><br><br><br>
             <button class="mainclass-button" style="margin-top:1rem;" id="mainclass-home" onclick="show_hide()">
                 <img src="/media/extra/menu.png" style="width:17px; height:17px;float:left; margin-left:2rem;margin-top:1.1rem;"/>
                 <h1 class="sidenav-element" id="sidenav-mainclass">My Classes</h1>

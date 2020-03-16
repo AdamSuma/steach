@@ -1,0 +1,25 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+<div style="margin-left:33rem;">
+    <div class="lesson-maindiv" style="height:30rem;width:90rem;float:left; border-radius:1rem;margin-left:30rem;">
+    <center>
+    <h1 style="font-size:30px;font-family:'Open Sans';margin-top:2rem;border-bottom:0.1rem solid lightgrey; width:90%; height:5rem;">Join Class</h1>
+    </center>
+    <br>
+    <form method="POST">
+    {% csrf_token %}
+    <center>
+    <input name='mainclass_id' type='number' class="search" style="float:none;font-size:20px;font-family:'Muli';border:0.1rem solid lightgrey;border-radius:0.3rem;height:4rem;width:15rem;" placeholder="Main Class ID" required />
+    </center>
+    {% if not id_valid %}
+    <center><h1 style="font-family:'Muli'; font-size:15px; color:red; margin-top:2rem;">There is no Main Class with that ID</h1></center>
+    {% endif %}
+    <br><br>
+    <center>
+    <button class="btn btn-outline-dark" style="font-size:20px;font-family:'Muli';">Submit</button>
+    </center>
+    </form>
+    </div>
+</div>
+{% endblock %}

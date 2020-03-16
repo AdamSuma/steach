@@ -1,0 +1,46 @@
+{% extends 'account/teacher_base.html' %}
+
+{% block body %}
+<div style="margin-left:33rem;float:left;overflow:hidden;">
+    <div class="lesson-maindiv" style="border-left: 0.5rem solid lightgrey;height:85rem;background-color:#F4F4F4;">
+        <h1 class="lesson-title-detail" style="float:left;">{{user.userprofile.main_class.name}}</h1>
+        <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:3rem;" title="Edit Main Class">
+            <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Edit Main Class</h1>
+        </div>
+        <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:2rem;" title="Grades">
+            <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Grades</h1>
+        </div>
+
+        <a href="{% url 'account:mainclass_students' %}" style="text-decoration:none; color:black;">
+        <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:2rem;" title="Students">
+            <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Students</h1>
+        </div>
+        </a>
+        <div style="height:0.1rem; width:97%; background-color:#D2D2D2; margin-top:6.5rem; margin-left:1.5rem;"></div>
+        <div style="overflow-y:auto;overflow-x:hidden;width:61.5%;height:87%; background-color:#F4F4F4;margin-left:2rem; margin-top:2rem;float:left;">
+            {% for student in students %}
+                <a href="#" style="color:black;">
+                    <div class="list-card-mainclass" style="height:10rem;border-radius:2rem; margin-top:2rem; width:95%; margin-left:2rem;box-shadow: 1px 1px 6px lightgrey;">
+                        {% if student.profile_picture %}
+                        <img src="{{ student.profile_picture.url }}" style="float:left;border-radius:100%; width:6.5rem; height:6.5rem;margin-top:1.6rem;margin-left:1.5rem;" />
+                        {% else %}
+                        <img src="/media/extra/user.png" style="float:left; width:5rem; height:5rem;margin-top:2.3rem;margin-left:2.3rem;" />
+                        {% endif %}
+                        <h1 class="lesson-title" style="float:left;font-family:'Muli'; margin-top:3.5rem; margin-left:1rem;">{{student.user.first_name}} {{student.user.last_name}}</h1>
+                        <button onclick="window.location.href = '{% url 'account:kick_student' student.id %}';" class="notification-button" style="margin-top:3rem;border:none;margin-right:3rem;" title="Kick">
+                        <img src="/media/extra/exit.png" style="width:2rem;height:2rem;margin-top:0.2rem;margin-left:0.4rem;" />
+                        </button>
+                    </div>
+                </a>  
+            {% endfor %}
+            <br>
+        </div>
+        <div style="float:right; width:34%; height:87%; margin-top:2rem;margin-right:2rem;">
+            <h1 style="transform: rotate(+20deg);font-size:31px;font-family:'Open Sans', sans-serif; color:#B5B5B5; float:left;margin-top:30rem;margin-left:2rem;">New features being developed :)</h1>
+        </div>
+        <div style="float:right; background-color:#D2D2D2; margin-top:1rem; margin-right:0.5rem;height:100%; width:0.1rem;"></div>
+        
+        <br>
+    </div>
+</div>
+{% endblock %}

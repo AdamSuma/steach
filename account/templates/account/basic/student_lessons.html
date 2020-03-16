@@ -3,12 +3,33 @@
 {% block body %}
 <div style="margin-left:33rem;">
     <div class="top-bar">
-        <form method='GET' action="{% url 'account:student_lessons' subclass_id %}">
+        {% if sub_class %}
+        <form method='GET' action="{% url 'account:student_lessons' sub_class.id %}">
             <img src="/media/extra/search.png" style="height:3rem; width:3rem;margin-top:1rem;margin-left:1rem;float:left;">
             <input class="search" name='search' value="{{request.GET.search}}" placeholder="Search for your lesson">
         </form>
-        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left"></div>        
-        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left; margin-left:20rem;"></div>
+        {% else %}
+        <form method='GET' action="{% url 'account:student_lessons' 0 %}">
+            <img src="/media/extra/search.png" style="height:3rem; width:3rem;margin-top:1rem;margin-left:1rem;float:left;">
+            <input class="search" name='search' value="{{request.GET.search}}" placeholder="Search for your lesson">
+        </form>
+        {% endif %}
+        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left"></div>
+        <div class="dropdown" style="float:left;">
+            <button onclick="myFunction()" class="dropbtn" >
+                <div style="height:60%; width:0.3rem; background-color:#D2D2D2; background-color:#{{sub_class.color_code}};float:left;margin-right:-1rem;"></div>
+                {% if sub_class.name %} {{sub_class.name}} {% else %} All Classes {% endif %}
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                    <div style="height:2rem; margin-top:1rem; width:0.2rem; background-color:#D2D2D2;float:left;margin-left:1rem;"></div>
+                    <center><a href="{% url 'account:student_lessons' '0'%}"><h1  style="color:#979797; font-size:18px;font-family: 'Source Sans Pro', sans-serif;margin-top:-0.3rem;">All Classes</h1></a></center>
+                    {% for subclass in user.userprofile.main_class.subclass_set.all %}
+                    <div style="height:2rem; margin-top:1rem; width:0.2rem; background-color:#D2D2D2; background-color:#{{subclass.color_code}};float:left;margin-left:1rem;"></div>
+                    <center><a href="{% url 'account:student_lessons' subclass.id%}"><h1  style="color:#979797; font-size:18px;font-family: 'Source Sans Pro', sans-serif;margin-top:-0.3rem;">{{ subclass.name }}</h1></a></center>  
+                    {% endfor %}
+            </div>  
+        </div>      
+        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left; margin-left:0rem;"></div>
     </div>
     <br>
     <br>
@@ -106,5 +127,6 @@ window.onclick = function(event) {
     }
   }
 }
+   
 </script>
 {% endblock %}

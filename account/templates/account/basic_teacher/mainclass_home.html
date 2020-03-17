@@ -4,6 +4,7 @@
 <div style="margin-left:33rem;float:left;overflow:hidden;">
     <div class="lesson-maindiv" style="border-left: 0.5rem solid lightgrey;background-color:#F4F4F4;height:85rem;">
         <h1 class="lesson-title-detail" style="float:left;">{{user.userprofile.main_class.name}}</h1>
+            <h1 class="lesson-title-detail" style="float:left;color:grey; font-size:20px;margin-top:2.8rem;">Class ID: {{user.userprofile.main_class.id}}</h1>
         <a href="{% url 'account:edit_mainclass' %}" style="text-decoration:none;color:black;">
         <div class='mainclass-topbar-button' style="width:15rem;text-align:center;border-radius:1rem;margin-right:3rem;" >
             <h1 style="font-size:17px; font-family: 'Muli', sans-serif;margin-top:0.9rem;">Edit Main Class</h1>

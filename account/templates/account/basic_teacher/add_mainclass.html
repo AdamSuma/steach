@@ -12,6 +12,9 @@
         {% endif %}
         <input type='text' name="name" class='search' value='{{ form.initial.name }}' style="width:10rem;text-align:center;float:none;font-family: 'Muli', sans-serif;margin-bottom:-10rem;margin-left:-0.7rem;" maxlength='8' placeholder="Name" required></input>
         <div style="background-color:  rgb(185, 185, 185); width: 20rem; height:0.1rem; margin-top:1rem;"></div>
+        {% if form.initial.semester %}
+        <h1 style="font-family: 'Muli', sans-serif; font-size:20px;margin-top:1rem; color:grey">Semester: </h1>
+        {% endif %}
         <input type='number' name="semester" value='{{ form.initial.semester }}' style="font-size:20px;font-family: 'Muli', sans-serif;border:0.2rem solid lightgrey; height:4rem;border-radius:0.5rem;width:6.5rem;margin-top:1rem;" placeholder="Sem." required></input>
         </center>
         <center>

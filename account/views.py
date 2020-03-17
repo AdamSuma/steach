@@ -576,7 +576,7 @@ def teacher_handle_request(request, request_id, handle):
             teacher=request.user.userprofile,
         ) 
         sub_class.save()
-        request.object.delete()
+        request_object.delete()
         return redirect('account:teacher_lessons', sub_class.id)
     elif request.user.userprofile == request_object.recieved_by and handle == '0':
         request_object.delete()

@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^student/grades/(?P<subclass_id>[0-9]+)/$', views.student_grades, name='student_grades'),
     url(r'^student/calendar/(?P<subclass_id>[0-9]+)/(?P<week>[0-9]+)/$', views.student_calendar, name='student_calendar'),    
     url(r'^student/lessons/(?P<subclass_id>[0-9]+)/(?P<lesson_id>[0-9]+)/$', views.student_lesson, name='student_lesson'),
+    url(r'^teacher/lessons/(?P<subclass_id>[0-9]+)/(?P<lesson_id>[0-9]+)/$', views.teacher_lesson, name='teacher_lesson'),
     url(r'^student_register/$', views.student_register, name='student_register'),
     url(r'^student/edit/$', views.edit_student_profile, name='edit_student_profile'),
     url(r'^teacher_register/$', views.teacher_register, name='teacher_register'),

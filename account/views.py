@@ -310,6 +310,22 @@ def student_lesson(request, subclass_id, lesson_id):
 
 
 @login_required
+def teacher_lesson(request, subclass_id, lesson_id):
+    rd = handle_redirect('teacher', request.user.userprofile.user_type)
+    if rd:
+        return redirect('account:' + rd)
+    try:
+        lesson = Lesson.objects.get(id=lesson_id, sub_class__teacher=request.user.userprofile)
+
+    except:
+        return redirect('account:teacher_lessons', "0")
+
+    template_name = "account/basic_teacher/teacher_lesson.html"
+    
+    return render(request, template_name, {'lesson': lesson})
+
+
+@login_required
 def student_grades(request, subclass_id):
     rd = handle_redirect('student', request.user.userprofile.user_type)
     if rd:
@@ -493,7 +509,7 @@ def edit_subclass(request, subclass_id):
             try:
                 teacher = Userprofile.objects.get(id=form.cleaned_data['teacher'], user_type='teacher')
             except:
-                return render(request, template_name, {'form': AddSubClassForm(), 'invalid_id': True})
+                return render(request, template_name, {'form': AddSubClassForm( initial={'name': sub_class.name, 'color_code': sub_class.color_code }), 'invalid_id': True})
 
             if teacher != sub_class.teacher:
                 try:

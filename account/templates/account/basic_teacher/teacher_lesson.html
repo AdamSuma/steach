@@ -1,0 +1,23 @@
+{% extends 'account/teacher_base.html' %}
+
+{% block body %}
+<div style="margin-left:33rem;float:left;overflow:hidden">
+    <div class="lesson-maindiv" style="border-left: 0.5rem solid #{{lesson.sub_class.color_code}};">
+        <h1 class="lesson-title-detail" style="margin-bottom:-10rem;">{{lesson.title}}</h2>
+        <h1 class="lesson-subtitle" style="float:left;margin-left:2rem; margin-top:6rem;font-size:25px;margin-bottom:-500rem;">{{lesson.sub_class}}</h1>
+        <h1 class="lesson-title" style="float:right; margin-right:2rem;margin-bottom:-500rem">{{lesson.date_added}}</h1>
+        <img src="/media/extra/clock.png" style="width:2rem; height:2rem; float:right; margin-right:14rem; margin-top:1.9rem;margin-bottom:-500rem;">
+        <h1 class="lesson-title" style="float:right;margin-top:7rem;margin-right:2rem;">{{lesson.sub_class.teacher.user.first_name}} {{lesson.sub_class.teacher.user.last_name}}</h1>
+        {% if lesson.sub_class.teacher.profile_picture %}   
+        <img src="{{lesson.sub_class.teacher.profile_picture.url}}" style="width:5rem; height:5rem; border-radius:100%;float:right; margin-top:6rem;margin-bottom:-500rem;">
+        {% else %}
+        <img src="/media/extra/user.png" style="width:3.5rem; height:3.5rem;float:right; margin-top:6.5rem;margin-bottom:-500rem;">
+        {% endif %}
+        <h1 style="font-family: 'Source Sans Pro', sans-serif; font-size:20px;float:left; width:100rem;margin-top:15rem;margin-left:2rem;">{{lesson.text|linebreaks}}</h1>    
+        {% if lesson.pdf %}
+        <center><embed src="{{lesson.pdf.url}}" style="margin-top:2rem;" width="1000rem" height="900rem" /></center>
+        <br>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

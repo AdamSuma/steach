@@ -17,7 +17,11 @@
         {% endif %}
         <input value="{{form.initial.teacher}}" type='number' name="teacher" style="font-size:20px;font-family: 'Muli', sans-serif;border:0.2rem solid lightgrey; height:4rem;border-radius:0.5rem;width:11.7rem;margin-top:1rem;text-align:center;" placeholder="Teacher ID" required></input>
         <div style="background-color:  rgb(185, 185, 185); width: 20rem; height:0.1rem; margin-top:1rem;"></div>
-        <input value="{{form.initial.color_code}}" type='text' class="search" name="color_code" style="float:none;font-size:20px;font-family: 'Muli', sans-serif;border:none;height:4rem;width:11.7rem;margin-top:1rem;text-align:center;" placeholder="Color Code" required></input>
+        {% if form.initial.color_code %}
+        <input value="{{form.initial.color_code}}" type='text' class="search" name="color_code" style="float:none;font-size:20px;font-family: 'Muli', sans-serif;border:none;height:4rem;width:11.7rem;margin-top:1rem;text-align:center;" placeholder="Color Code" ></input>
+        {% else %}
+        <input value="C70000" type='text' class="search" name="color_code" style="float:none;font-size:20px;font-family: 'Muli', sans-serif;border:none;height:4rem;width:11.7rem;margin-top:1rem;text-align:center;" placeholder="Color Code" ></input>
+        {% endif %}
         {% if invalid_id %}
         <br><br>
         <h1 style="font-family: 'Muli', sans-serif; font-size:20px;color:red;">Invalid Teacher ID</h1>  

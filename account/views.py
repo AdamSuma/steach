@@ -633,3 +633,49 @@ def student_join_request(request):
         return redirect('account:student_home')
     
     return render(request, template_name,{'id_valid': True})
+
+
+@login_required
+def student_archives(request, subclass_id, my_filter):
+    rd = handle_redirect('student', request.user.userprofile.user_type)
+    if rd:
+        return redirect('account:' + rd) 
+    template_name = "account/basic/student_archives.html"
+    search_input = request.GET.get('search')
+    main_class = request.user.userprofile.main_class
+    try:
+        sub_class = SubClass.objects.get(id=subclass_id)
+        if request.user.userprofile.main_class != sub_class.main_class:
+            return redirect('account:student_home')
+    except:
+        sub_class = None
+        if subclass_id != '0':
+            return redirect('account:student_home')
+
+    if my_filter == '0':
+        if subclass_id == '0':
+            archive_list = Archive.objects.filter(author=request.user.userprofile, archive_type='submission').order_by('-date_added')
+        else:
+            archive_list = Archive.objects.filter(sub_class=sub_class, author=request.user.userprofile, sub_class__main_class=main_class, archive_type='submission').order_by('-date_added')
+    
+        if search_input:
+            archive_list = archive_list.filter(Q(title__icontains=search_input) | Q(date_added__icontains=search_input) | Q(sub_class__name__icontains=search_input))
+            return render(request, template_name, context={'archives': archive_list, 'sub_class': sub_class, 'my_filter': my_filter})
+    else:
+        if subclass_id == '0':
+            archive_list = Archive.objects.filter(sub_class__main_class=main_class, author=request.user.userprofile, archive_type='private').order_by('-date_added')
+        else:
+            archive_list = Archive.objects.filter(sub_class=sub_class, author=request.user.userprofile, sub_class__main_class=main_class, archive_type='private').order_by('-date_added')
+    
+        if search_input:
+            archive_list = archive_list.filter(Q(title__icontains=search_input) | Q(date_added__icontains=search_input) | Q(sub_class__name__icontains=search_input))
+            return render(request, template_name, context={'archives': archive_list, 'sub_class': sub_class, 'my_filter': 1})
+
+    paginator = Paginator(archive_list, 25)
+
+    page = request.GET.get('page')
+    archives = paginator.get_page(page)
+
+    return render(request, template_name, context={'archives': archives, 'sub_class': sub_class, 'my_filter': my_filter})
+
+

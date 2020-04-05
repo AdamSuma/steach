@@ -1,0 +1,158 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+<div style="margin-left:33rem;">
+    <div class="top-bar">
+        {% if sub_class %}
+        <form method='GET' action="{% url 'account:student_archives' sub_class.id my_filter %}">
+            <img src="/media/extra/search.png" style="height:3rem; width:3rem;margin-top:1rem;margin-left:1rem;float:left;">
+            <input class="search" name='search' value="{{request.GET.search}}" placeholder="Search in your Archive">
+        </form>
+        {% else %}
+        <form method='GET' action="{% url 'account:student_archives' 0 my_filter %}">
+            <img src="/media/extra/search.png" style="height:3rem; width:3rem;margin-top:1rem;margin-left:1rem;float:left;">
+            <input class="search" name='search' value="{{request.GET.search}}" placeholder="Search in your Archive">
+        </form>
+        {% endif %}
+        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left"></div>
+        <div class="dropdown" style="float:left;">
+            <button onclick="myFunction()" class="dropbtn" >
+                <div style="height:60%; width:0.3rem; background-color:#D2D2D2; background-color:#{{sub_class.color_code}};float:left;margin-right:-1rem;"></div>
+                {% if sub_class.name %} {{sub_class.name}} {% else %} All Classes {% endif %}
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+                    <div style="height:2rem; margin-top:1rem; width:0.2rem; background-color:#D2D2D2;float:left;margin-left:1rem;"></div>
+                    <center><a href="{% url 'account:student_archives' 0 my_filter%}"><h1  style="color:#979797; font-size:18px;font-family: 'Source Sans Pro', sans-serif;margin-top:-0.3rem;">All Classes</h1></a></center>
+                    {% for subclass in user.userprofile.main_class.subclass_set.all %}
+                    <div style="height:2rem; margin-top:1rem; width:0.2rem; background-color:#D2D2D2; background-color:#{{subclass.color_code}};float:left;margin-left:1rem;"></div>
+                    <center><a href="{% url 'account:student_archives' subclass.id my_filter%}"><h1  style="color:#979797; font-size:18px;font-family: 'Source Sans Pro', sans-serif;margin-top:-0.3rem;">{{ subclass.name }}</h1></a></center>  
+                    {% endfor %}
+            </div>  
+        </div>      
+        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left; margin-left:0rem;"></div>
+        {% if my_filter != '0' and sub_class %}
+        <button onclick="window.location.href = '{% url 'account:student_archives' sub_class.id 0 %}'" class="dropbtn" style="width:15rem;" >
+            Personal 
+        </button>
+        {% elif my_filter != '0'%}
+        <button onclick="window.location.href = '{% url 'account:student_archives' 0 0 %}'" class="dropbtn" style="width:15rem;" >
+            Personal 
+        </button>
+        {% elif my_filter == '0' and sub_class %}
+        <button onclick="window.location.href = '{% url 'account:student_archives' sub_class.id 1 %}'" class="dropbtn" style="width:15rem;" >
+            Submissions 
+        </button>
+        {% elif my_filter == '0'%}
+        <button onclick="window.location.href = '{% url 'account:student_archives' 0 1 %}'" class="dropbtn" style="width:15rem;" >
+            Submissions 
+        </button>
+        {% endif %}
+        <div style="width:0.1rem; height:3.5rem; margin-top:0.75rem; background-color:#D2D2D2; float:left; margin-left:0rem;"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="lesson-container">
+    <br>
+    <a href="#" style="color:black;">
+        <div class="list-card" style="border-bottom: 0.1rem solid #DCDCDC;">
+            <div style="background-color:#B5B5B5; width:0.4rem; height:15rem;float:left;"></div>
+            <img src="/media/extra/plus.png" style="width:7rem; height:7rem;margin-top:3.5rem;margin-left:1rem;float:left;" />
+            <h1 style="font-size:50px;font-family:'Muli', sans-serif; color:#B5B5B5; float:left;margin-top:4rem;margin-left:2rem;">ADD NEW ITEM</h1>
+        </div>
+        <div style="height:0.1rem; width:140rem;float:left;margin-bottom:-0.1rem;"></div>
+    </a>  
+    {% for archive in archives %}
+        <a href="#" style="color:black;">
+        <div class="list-card" style="border-bottom: 0.1rem solid #DCDCDC;">
+            <div style="background-color:#{{archive.sub_class.color_code}}; width:0.4rem; height:15rem;float:left;"></div>
+            <h1 class="lesson-title">{{archive.title}}</h1>
+            <h1 class="lesson-subtitle">{{archive.sub_class.name}}</h1>
+            <h1 class="lesson-subtitle" style="float:right; margin-right:2rem; margin-top:-2.5rem; color:black;">{{archive.date_added}}</h1>
+        </div>
+        <div style="height:0.1rem; width:140rem;float:left;margin-bottom:-0.1rem;"></div>
+        </a>    
+    {% endfor %}
+    </div>
+    <center>
+    <div class="pagination" style="background-color:white;width:25rem;height:5rem;border-radius: 0.6rem 0.6rem 0.6rem 0.6rem;margin-left:58rem;">
+        <span class="step-links" >
+            {% if archives.has_previous %}
+                <a href="?page=1" style="float:left">
+                    <div style="border-radius: 20%;float:left;margin-top:1rem;margin-left:1rem;" title="First">
+                        <img class='pagination-button' src="/media/extra/double-previous.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+                <a href="?page={{ archives.previous_page_number }}" style="float:left">
+                    <div style="border-radius: 20%;float:left;margin-top:1rem;" title="Previous">
+                        <img class='pagination-button' src="/media/extra/previous.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+            {% else %}
+                <a href="#" style="float:left">
+                    <div style="border-radius: 20%;float:left;margin-top:1rem;margin-left:1rem;" title="First">
+                        <img class='pagination-button-red' src="/media/extra/double-previous.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+                <a href="#" style="float:left">
+                    <div style="border-radius: 20%;float:left;margin-top:1rem;" title="Previous">
+                        <img class='pagination-button-red' src="/media/extra/previous.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+            {% endif %}
+
+            <span style="float:left;color:black;margin-left:2.5rem; margin-right:2.5rem;font-family: 'Source Sans Pro', sans-serif;font-size:15px;margin-top:1.3rem;">
+                Page {{ archives.number }} / {{ archives.paginator.num_pages }}
+            </span> 
+
+            {% if archives.has_next %}
+                <a href="?page={{ archives.next_page_number }}" style="float:left">
+                    <div  style="border-radius: 20%;float:left;margin-top:1rem;" title="Next">
+                        <img class='pagination-button' src="/media/extra/next.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+                <a href="?page={{ archives.paginator.num_pages }}" style="float:left">
+                    <div style="border-radius: 20%;float:left;margin-top:1rem;" title="Last">
+                        <img class='pagination-button' src="/media/extra/double-next.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+            {% else %}
+                <a href="#" style="float:left">
+                    <div  style="border-radius: 20%;float:left;margin-top:1rem;" title="Next">
+                        <img class='pagination-button-red' src="/media/extra/next.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+                <a href="#" style="float:left">
+                    <div style="border-radius: 20%;float:left;margin-top:1rem;" title="Last">
+                        <img class='pagination-button-red' src="/media/extra/double-next.png" style="width: 3rem; height:3rem;" />
+                    </div>
+                </a>
+            {% endif %}
+        </span>
+    </div>
+    </center>   
+</div>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+   
+</script>
+{% endblock %}

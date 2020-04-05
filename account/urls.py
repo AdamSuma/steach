@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^student/edit/$', views.edit_student_profile, name='edit_student_profile'),
     url(r'^teacher_register/$', views.teacher_register, name='teacher_register'),
     url(r'^teacher/edit/$', views.edit_teacher_profile, name='edit_teacher_profile'),
+    url(r'^student/archives/(?P<subclass_id>[0-9]+)/(?P<my_filter>[0-9]+)/$', views.student_archives, name='student_archives'),    
 ]

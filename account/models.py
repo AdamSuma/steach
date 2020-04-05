@@ -112,6 +112,27 @@ class Request(models.Model):
     subclass = models.OneToOneField(SubClass, on_delete=models.CASCADE, null=True, default=None)
 
 
+class Archive(models.Model):
+    TYPE_CHOICES = (
+        ('submission', 'Submission'),
+        ('private', 'Private')
+    )
+
+    title = models.TextField(max_length=100)
+    author = models.ForeignKey(Userprofile, on_delete=models.CASCADE, null=False)
+    sub_class = models.ForeignKey(SubClass, on_delete=models.CASCADE, null=False)
+    text = models.TextField(max_length=1000)
+    date_added = models.DateField(auto_now_add=True)
+    archive_type = models.CharField(max_length=30, choices=TYPE_CHOICES, default='private')
+
+    def pdf_upload_archive_path(self, filename):
+        return "archives/" + filename
+
+    pdf = models.FileField(upload_to=pdf_upload_archive_path, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
 
 
 
